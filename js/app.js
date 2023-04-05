@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function(){
         mensaje: ''
     }
 
-
    //Seleccionar los elementos de la interfaz
     const inputEmail = document.querySelector("#email");
     const inputAsunto = document.querySelector("#asunto");
@@ -15,8 +14,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const btnSubmit = document.querySelector("#formulario button[type='submit']");
     const btnReset = document.querySelector("#formulario button[type='reset']");
     const spinner = document.querySelector("#spinner");
-
-
 
   //Asignar Evento
 
@@ -29,13 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
     btnReset.addEventListener("click", function(e){
         e.preventDefault();
 
-        //Reiniciar el objeto
-        email.email="";
-        email.asunto="";
-        email.mensaje="";
-
-        formulario.reset();
-        comprobarEmail();
+        resetFormulario();
     })
 
     function enviarEmail(e){
@@ -43,6 +34,26 @@ document.addEventListener("DOMContentLoaded", function(){
 
         spinner.classList.add('flex');
         spinner.classList.remove('hidden');
+
+        setTimeout(() => {
+            spinner.classList.remove('flex');
+            spinner.classList.add('hidden');
+
+            resetFormulario();
+
+            //Crear Alerta
+
+            const alertaExito = document.createElement('P');
+            alertaExito.classList.add('bg-green-500', 'text-white', 'p-2', 'text-center', 'rounded-lg', 'mt-10', 'font-bold', 'text-sm', 'uppercase');
+            alertaExito.textContent = "El formulario se envió correctamente";
+
+            formulario.appendChild(alertaExito);
+
+            setTimeout(() =>{
+                alertaExito.remove();
+
+            },3000)
+        },3000);
 
     }
 
@@ -104,5 +115,16 @@ document.addEventListener("DOMContentLoaded", function(){
         } 
         btnSubmit.classList.remove('opacity-50');
         btnSubmit.disabled = false;   
+    }
+
+    function resetFormulario(){
+
+        //Reiniciar el objeto
+        email.email="";
+        email.asunto="";
+        email.mensaje="";
+ 
+        formulario.reset();
+        comprobarEmail();
     }
 });
