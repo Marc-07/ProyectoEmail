@@ -13,7 +13,18 @@ document.addEventListener("DOMContentLoaded", function(){
     inputMensaje.addEventListener("blur", validar);
 
     function validar(e){
-        console.log(e.target.value)
+        if (e.target.value.trim() === ""){
+            mostrarAlerta();
+        }else{
+            console.log("Hay algo");
+        }
+    }
 
+    function mostrarAlerta(){
+        //Generar alerta en HTML
+        const error = document.createElement("P");
+        error.textContent = "Hubo un error..."
+        
+        console.log(error)
     }
 });
